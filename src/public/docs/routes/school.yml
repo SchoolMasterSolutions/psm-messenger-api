@@ -1,0 +1,192 @@
+definitions:
+  Address:
+    type: object
+    required:
+      - district
+      - region
+    properties:
+      district:
+        type: string
+        description: District in which the school is located
+      region:
+        type: string
+        description: Region in which the school is located
+        enum: ["east", "west", "central", "north", "south"]
+      website:
+        type: string
+        description: School's website
+      email:
+        type: string
+        description: School's email address
+      coordinates:
+        type: object
+        properties:
+          latitude:
+            type: number
+            description: e.g. 0.3711983
+          longitude:
+            type: number
+            description: e.g. 32.6390483
+
+  School:
+    type: object
+    required:
+      - name
+      - code
+      - category
+      - curricula
+      - rating
+      - address
+      - signup_status
+    properties:
+      curricula:
+        description: School Curricula
+        type: array
+        items:
+          enum:
+            - local
+            - international
+
+      category:
+        description: School category
+        type: string
+        enum:
+          - pre-primary
+          - kindergarten
+          - primary
+          - secondary
+
+      name:
+        type: string
+        description: Name of the school
+
+      code:
+        type: string
+        description: Unique identifier of the school usually generated through PSM
+
+      address:
+        type: object
+        description: The school's address
+        $ref: "#/definitions/Address"
+
+      signup_status:
+        type: boolean
+        description: Indicates whether thes school has signup for PSM messenger or not
+
+parameters:
+  id:
+    in: path
+    type: string
+    required: true
+    name: id
+    description: School Id
+
+  search:
+    in: query
+    type: string
+    required: true
+    name: search
+    description: Search keyword
+
+  school:
+    in: body
+    type: object
+    required: true
+    name: body
+    description: School object
+    schema:
+      $ref: "#/definitions/School"
+
+paths:
+  /api/school:
+    post:
+      tags:
+        - School
+      summary: Add a school
+      description: This allows creation of a new school
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/school"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/School"
+        500:
+          description: internal server error
+
+    get:
+      tags:
+        - School
+      summary: Search a school
+      description: Searches schools based on a given search criteria
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/search"
+      responses:
+        200:
+          description: A list of all schools
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/School"
+        404:
+          description: No schools found
+        500:
+          description: internal server error
+
+  /api/school/{id}:
+    get:
+      tags:
+        - School
+      summary: Get school details
+      description: Gets the details of a school by id
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: School details
+          schema:
+            $ref: "#/definitions/School"
+        404:
+          description: School not found
+        500:
+          description: internal server error
+
+    put:
+      tags:
+        - School
+      summary: Update a school
+      description: Use this endpoint if you want to update a school
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/school"
+
+      responses:
+        200:
+          description: Returns the school that has been updated
+          schema:
+            $ref: "#/definitions/School"
+        404:
+          description: School not found
+        500:
+          description: internal server error
+
+    delete:
+      tags:
+        - School
+      summary: Delete a school
+      description: Deletes a school
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: School deleted successfully
+        404:
+          description: School not found
+        500:
+          description: internal server error

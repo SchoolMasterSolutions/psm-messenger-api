@@ -1,0 +1,111 @@
+definitions:
+  Login:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        description: User's email address
+      password:
+        type: string
+        description: User's password
+
+  ChangePassword:
+    type: object
+    required:
+      - old_password
+      - new_password
+    properties:
+      old_password:
+        type: string
+        description: User's old/current password
+      new_password:
+        type: string
+        description: User's new password
+
+paths:
+  api/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User Login
+      description: This allows a user to login
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - in: body
+          type: object
+          required: true
+          name: body
+          description: Login object
+          schema:
+            $ref: "#/definitions/Login"
+
+      responses:
+        200:
+          description: Success
+        404:
+          description: Not found
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
+
+  api/auth/change/password/{id}:
+    post:
+      tags:
+        - Authentication
+      summary: Change Password
+      description: This allows a user to change their password.
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - in: body
+          type: object
+          required: true
+          name: body
+          description: User's email address
+          schema:
+            $ref: "#/definitions/ChangePassword"
+
+      responses:
+        200:
+          description: Success
+        404:
+          description: Not found
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
+
+  api/auth/reset/password/{id}:
+    post:
+      tags:
+        - Authentication
+      summary: Reset Password
+      description: This allows a user to reset their password.
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - in: query
+          type: string
+          required: true
+          name: email
+          description: User's email address
+        - in: path
+          type: string
+          required: true
+          name: id
+          description: User ID
+
+      responses:
+        200:
+          description: Success
+        404:
+          description: Not found
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error

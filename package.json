@@ -1,0 +1,52 @@
+{
+  "name": "psm-messenger-api",
+  "version": "0.0.1",
+  "description": "PSM Messenger API",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "nodemon ./src/app.js --exec babel-node -e js,yml,html",
+    "tsc": "tsc",
+    "test": "mocha --require @babel/register --require @babel/polyfill"
+  },
+  "keywords": [
+    "estimation"
+  ],
+  "author": "Wilson Kiggundu",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/polyfill": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "@types/express": "^4.16.1",
+    "bluebird": "^3.5.4",
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-mocha": "^5.3.0",
+    "express": "^4.16.4",
+    "mocha": "^6.1.4",
+    "mongoose": "^5.5.1",
+    "mongoose-reverse-populate": "^1.1.0",
+    "mongoose-type-email": "^1.0.11",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.11",
+    "redoc": "^2.0.0-rc.4",
+    "rotating-file-stream": "^1.4.1",
+    "should": "^13.2.3",
+    "sinon": "^7.3.2",
+    "sinon-chai": "^3.3.0",
+    "sinon-express-mock": "^2.2.0",
+    "supertest": "^4.0.2",
+    "swagger-jsdoc": "^3.2.9",
+    "swagger-ui-express": "^4.0.2",
+    "validate.js": "^0.12.0"
+  },
+  "devDependencies": {}
+}

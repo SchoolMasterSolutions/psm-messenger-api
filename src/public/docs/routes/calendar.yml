@@ -1,0 +1,202 @@
+definitions:
+  Event:
+    type: object
+    required:
+      - start_date
+      - end_date
+
+    properties:
+      title:
+        type: string
+        description: Title of the event
+
+      details:
+        type: string
+        description: Details about the event
+
+      start_date:
+        type: string
+        description: Date and time when the event starts
+
+      end_date:
+        type: string
+        description: Date and time when the event ends
+
+      venue:
+        type: object
+        description: Where the event is located
+        required:
+          - name
+        properties:
+          name:
+            type: string
+            description: Name of the venue
+          map:
+            type: string
+            description: Google map pin
+
+      audience:
+        type: array
+        description: Who is supposed to see this event in their calendar?
+        items:
+          enum:
+            - staff
+            - parents
+            - all
+
+      linked_information:
+        type: array
+        description: Additional information that is linked to the event e.g. photos, links etc.
+        items:
+          type: object
+          properties:
+            category:
+              type: string
+              description: Information category
+              enum: ["image", "video", "link"]
+            value:
+              type: string
+              description: e.g. path to image, link to article
+
+      reminders:
+        type: object
+        description: Indicates if reminders are enabled or not
+        required:
+          - enabled
+        properties:
+          enabled:
+            type: boolean
+          channel:
+            type: array
+            description: The channel(s) through which the reminders shall be sent
+            items:
+              enum:
+                - sms
+                - email
+                - push-notif
+          frequency:
+            type: array
+            description: How many times and when the reminders are sent
+            items:
+              enum:
+                - 1 week
+                - 1 day
+                - 15 minutes
+
+parameters:
+  id:
+    in: path
+    type: string
+    required: true
+    name: id
+    description: Event Id
+
+  search:
+    in: query
+    type: string
+    required: true
+    name: search
+    description: Search keyword
+
+  event:
+    in: body
+    type: object
+    required: true
+    name: body
+    description: Event object
+    schema:
+      $ref: "#/definitions/Event"
+
+paths:
+  /api/event:
+    post:
+      tags:
+        - Event
+      summary: Add an event
+      description: This allows creation of a new event
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/event"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Event"
+        500:
+          description: internal server error
+
+    get:
+      tags:
+        - Event
+      summary: Search an event
+      description: Searches events based on a given search criteria
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/search"
+      responses:
+        200:
+          description: A list of all events
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Event"
+        404:
+          description: No events found
+        500:
+          description: internal server error
+
+  /api/event/{id}:
+    get:
+      tags:
+        - Event
+      summary: Get event details
+      description: Gets the details of an event by id
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Event details
+          schema:
+            $ref: "#/definitions/Event"
+        404:
+          description: Event not found
+        500:
+          description: internal server error
+
+    put:
+      tags:
+        - Event
+      summary: Update an event
+      description: Use this endpoint if you want to update an event
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/event"
+
+      responses:
+        200:
+          description: Returns the event that has been updated
+          schema:
+            $ref: "#/definitions/Event"
+        404:
+          description: Event not found
+        500:
+          description: internal server error
+
+    delete:
+      tags:
+        - Event
+      summary: Delete an event
+      description: Deletes an event
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Event deleted successfully
+        404:
+          description: Event not found
+        500:
+          description: internal server error
