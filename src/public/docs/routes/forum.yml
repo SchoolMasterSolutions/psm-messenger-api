@@ -1,0 +1,268 @@
+definitions:
+  Article:
+    type: object
+    required:
+      - author
+      - title
+      - details
+      - audience
+
+    properties:
+      author:
+        description: Author
+        type: string
+
+      audience:
+        type: array
+        items:
+          enum: ["staff", "parents", "admin"]
+
+      title:
+        type: string
+        description: Title
+
+      details:
+        type: string
+        description: Details
+
+  Post:
+    type: object
+    required:
+      - author
+      - details
+      - audience
+    properties:
+      author:
+        description: Author
+        type: string
+
+      audience:
+        type: array
+        items:
+          enum: ["staff", "parents", "admin"]
+
+      details:
+        type: string
+        description: Details
+
+parameters:
+  id:
+    in: path
+    type: string
+    required: true
+    example: 507f1f77bcf86cd799439011
+    name: id
+    description: Id
+
+  search:
+    in: query
+    type: string
+    required: true
+    example: keyword
+    name: search
+    description: Search keyword
+
+  post:
+    in: body
+    type: object
+    required: true
+    name: body
+    description: Post object
+    schema:
+      $ref: "#/definitions/Post"
+
+  article:
+    in: body
+    type: object
+    required: true
+    name: body
+    description: Article article object
+    schema:
+      $ref: "#/definitions/Article"
+
+paths:
+  /api/forum/article:
+    post:
+      tags:
+        - Forum
+      summary: Add an article
+      description: This allows creation of a new article
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/article"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Article"
+        500:
+          description: internal server error
+
+    get:
+      tags:
+        - Forum
+      summary: Search an article
+      description: Searches articles based on a given search criteria
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/search"
+      responses:
+        200:
+          description: A list of all articles
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Article"
+        404:
+          description: No articles found
+        500:
+          description: internal server error
+
+  /api/forum/article/{id}:
+    get:
+      tags:
+        - Forum
+      summary: Get article details
+      description: Gets the details of an article by id
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Article details
+          schema:
+            $ref: "#/definitions/Article"
+        404:
+          description: Article not found
+        500:
+          description: internal server error
+
+    put:
+      tags:
+        - Forum
+      summary: Update an article
+      description: Use this endpoint if you want to update an article
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/article"
+
+      responses:
+        200:
+          description: Returns the article that has been updated
+          schema:
+            $ref: "#/definitions/Article"
+        404:
+          description: Post not found
+        500:
+          description: internal server error
+
+    delete:
+      tags:
+        - Forum
+      summary: Delete an article
+      description: Deletes an article
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Article deleted successfully
+        404:
+          description: Article not found
+        500:
+          description: internal server error
+
+  /api/forum/post:
+    post:
+      tags:
+        - Forum
+      summary: Add a post
+      description: This allows creation of a new post
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/post"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Post"
+        500:
+          description: internal server error
+
+    get:
+      tags:
+        - Forum
+      summary: Search a post
+      description: Searches posts based on a given search criteria
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/search"
+      responses:
+        200:
+          description: A list of all posts
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Post"
+        404:
+          description: No posts found
+        500:
+          description: internal server error
+
+  /api/forum/post/{id}:
+    get:
+      tags:
+        - Forum
+      summary: Get post details
+      description: Gets the details of a post by id
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Post details
+          schema:
+            $ref: "#/definitions/Post"
+        404:
+          description: Post not found
+        500:
+          description: internal server error
+
+    put:
+      tags:
+        - Forum
+      summary: Update a post
+      description: Use this endpoint if you want to update a post
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/post"
+
+      responses:
+        200:
+          description: Returns the post that has been updated
+          schema:
+            $ref: "#/definitions/Post"
+        404:
+          description: Post not found
+        500:
+          description: internal server error
+
+    delete:
+      tags:
+        - Forum
+      summary: Delete a post
+      description: Deletes a post
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Post deleted successfully
+        404:
+          description: Post not found
+        500:
+          description: internal server error

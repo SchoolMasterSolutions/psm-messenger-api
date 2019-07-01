@@ -31,6 +31,14 @@ export const swaggerDefinition = {
 
     },
 
+    tags: [{
+      name: 'Forum',
+      description: 'Allows users to publish posts, blog articles'
+    }, {
+      name: 'School',
+      description: 'Handles everything about a school'
+    }]
+
   },
   basedir: __dirname, // app absolute path
   apis: ['./src/public/docs/routes/*.yml'],

@@ -4,6 +4,7 @@ definitions:
     required:
       - start_date
       - end_date
+      - author
 
     properties:
       title:
@@ -42,7 +43,11 @@ definitions:
           enum:
             - staff
             - parents
-            - all
+            - admin
+
+      author:
+        type: ObjectId
+        description: Author
 
       linked_information:
         type: array

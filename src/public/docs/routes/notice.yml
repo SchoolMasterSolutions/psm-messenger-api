@@ -5,15 +5,16 @@ definitions:
       - title
       - details
       - audience
+      - author
     properties:
       audience:
         description: Who is the target audience for this notice? Defaults to 'all'
-        type: string
-        enum:
-          - staff
-          - parent
-          - admin
-          - all
+        type: array
+        items:
+          enum:
+            - staff
+            - parents
+            - admin
 
       title:
         type: string
@@ -23,14 +24,9 @@ definitions:
         type: string
         description: Unique identifier of the notice usually generated through PSM
 
-      address:
-        type: object
-        description: The notice's address
-        $ref: "#/definitions/Address"
-
-      signup_status:
-        type: boolean
-        description: Indicates whether thes notice has signup for PSM messenger or not
+      author:
+        type: ObjectId
+        description: Author
 
 parameters:
   id:

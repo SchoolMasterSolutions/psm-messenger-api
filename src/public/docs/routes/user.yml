@@ -18,6 +18,10 @@ definitions:
         type: string
         description: A summary of the feature under which the user falls
 
+      preferred_username:
+        type: string
+        description: Defaults to email address
+
       given_name:
         type: string
         description: The user's given name or first name
@@ -30,9 +34,13 @@ definitions:
         type: string
         description: The user's family name or last name
 
-      bio:
+      profile:
         type: string
         description: A brief description about the user
+
+      date_of_birth:
+        type: string
+        description: Date of birth. It's optional
 
 parameters:
   id:
