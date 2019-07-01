@@ -1,2 +1,1 @@
-# rocket-estimator-api
-API for the estimation app
+# psm-messenger-api
