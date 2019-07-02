@@ -43,6 +43,9 @@ export const swaggerDefinition = {
     }, {
       name: 'Results',
       description: 'Handles all student results. The results are stored per school, per student, per term, per year'
+    }, {
+      name: 'Notifications',
+      description: 'Handles everything about notifications'
     }]
 
   },

@@ -1,0 +1,168 @@
+definitions:
+  Notifications:
+    type: object
+    required:
+      - channel
+    properties:
+      channel:
+        type: string
+        enum:
+          - sms
+          - email
+          - app
+
+      audience:
+        type: array
+        items:
+          $ref: "#/definitions/User/properties/category"
+
+      recipients:
+        type: array
+        description: String array of emails or phone numbers to receive the notification.
+
+      school_codes:
+        type: array
+        description: Leave blank if the notification is for all schools
+        items:
+          type: string
+          description: "#/definitions/School/properties/code/description"
+
+      details:
+        type: string
+        description: Details of sms or email
+
+      send_date:
+        type: date
+        description: Date when the notification should be sent
+
+      schedule:
+        type: object
+        properties:
+          frequency:
+            type: string
+            default: once
+            enum: ["once", "daily", "weekly", "yearly"]
+          interval:
+            type: number
+            description: Number of days, weeks, years
+          until:
+            type: date
+            description: Date after which notification is not sent
+
+parameters:
+  id:
+    in: path
+    type: string
+    required: true
+    name: id
+    description: Notification Id
+
+  search:
+    in: query
+    type: string
+    required: true
+    name: search
+    description: Search keyword
+
+  notification:
+    in: body
+    type: object
+    required: true
+    name: body
+    description: Notification object
+    schema:
+      $ref: "#/definitions/Notifications"
+
+paths:
+  /api/notification:
+    post:
+      tags:
+        - Notifications
+      summary: Add a notification
+      description: This allows creation of a new notification
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/notification"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Notifications"
+        500:
+          description: internal server error
+
+    get:
+      tags:
+        - Notifications
+      summary: Search a notification
+      description: Searches notifications based on a given search criteria
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/search"
+      responses:
+        200:
+          description: A list of all notifications
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Notifications"
+        404:
+          description: No notifications found
+        500:
+          description: internal server error
+
+  /api/notification/{id}:
+    get:
+      tags:
+        - Notifications
+      summary: Get notification details
+      description: Gets the details of a notification by id
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Notification details
+          schema:
+            $ref: "#/definitions/Notifications"
+        404:
+          description: Notification not found
+        500:
+          description: internal server error
+
+    put:
+      tags:
+        - Notifications
+      summary: Update a notification
+      description: Use this endpoint if you want to update a notification
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/notification"
+
+      responses:
+        200:
+          description: Returns the notification that has been updated
+          schema:
+            $ref: "#/definitions/Notifications"
+        404:
+          description: Notification not found
+        500:
+          description: internal server error
+
+    delete:
+      tags:
+        - Notifications
+      summary: Delete a notification
+      description: Deletes a notification
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Notification deleted successfully
+        404:
+          description: Notification not found
+        500:
+          description: internal server error
