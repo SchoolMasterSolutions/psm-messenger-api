@@ -2,20 +2,17 @@ definitions:
   Article:
     type: object
     required:
-      - author
+      - author_id
       - title
       - details
       - audience
 
     properties:
-      author:
-        description: Author
-        type: string
+      author_id:
+        $ref: "#/definitions/User/properties/_id"
 
       audience:
-        type: array
-        items:
-          enum: ["staff", "parents", "admin"]
+        $ref: "#/definitions/User/properties/category"
 
       title:
         type: string
@@ -24,6 +21,17 @@ definitions:
       details:
         type: string
         description: Details
+
+      attachments:
+        type: array
+        description: Images, videos, documents
+        items:
+          type: object
+          properties:
+            file_name:
+              type: string
+            file:
+              type: binary
 
   Post:
     type: object
@@ -37,13 +45,14 @@ definitions:
         type: string
 
       audience:
-        type: array
-        items:
-          enum: ["staff", "parents", "admin"]
+        $ref: "#/definitions/User/properties/category"
 
       details:
         type: string
         description: Details
+
+      attachments:
+        $ref: "#/definitions/Article/properties/attachments"
 
 parameters:
   id:

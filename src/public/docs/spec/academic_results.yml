@@ -1,0 +1,204 @@
+definitions:
+  Subject:
+    type: object
+    description: School subject
+    properties:
+      _id:
+        type: string
+        description: Unique identifier of the subject
+      name:
+        type: string
+        description: School subject
+      papers:
+        type: array
+        items:
+          enum: [1, 2, 3, 4, 5, 6, 7, 8]
+
+  Results:
+    type: object
+    required:
+
+    properties:
+      student_id:
+        $ref: "#/definitions/Student/properties/psm_student_id"
+      school_code:
+        $ref: "#/definitions/School/properties/code"
+      term:
+        type: integer
+        description: School term
+        enum: [1, 2, 3]
+      year:
+        type: string
+        description: School calendar year e.g. 2018
+
+      assessment:
+        type: array
+        description: Results for each assessment
+        items:
+          type: object
+          properties:
+            category:
+              type: string
+              enum: ["BOT", "MT", "EOT", "Overall"]
+            results:
+              type: array
+              items:
+                type: object
+                properties:
+                  subject_id:
+                    $ref: "#/definitions/Subject/properties/_id"
+                  subject_paper:
+                    type: integer
+                    enum: [1, 2, 3, 4, 5, 6, 7, 8]
+                  mark:
+                    type: number
+                  score:
+                    type: string
+                    description: Overall subject score / grade
+                  comment:
+                    type: string
+                    description: Teacher's comment
+
+      overall:
+        type: object
+        properties:
+          total:
+            type: number
+            description: Total marks scored
+
+          average:
+            type: number
+            description: Average mark
+
+          division:
+            type: string
+
+          class_teacher_comment:
+            type: string
+            description: Class teacher's comment
+
+          head_teacher_comment:
+            type: string
+            description: Head teacher's comment
+
+          house_master_comment:
+            type: string
+            description: House master's comment
+
+parameters:
+  id:
+    in: path
+    type: string
+    required: true
+    name: id
+    description: Results Id
+
+  search:
+    in: query
+    type: string
+    required: true
+    name: search
+    description: Search keyword
+
+  result:
+    in: body
+    type: object
+    required: true
+    name: body
+    description: Results object
+    schema:
+      $ref: "#/definitions/Results"
+
+paths:
+  /api/results:
+    post:
+      tags:
+        - Results
+      summary: Create results
+      description: This allows creation of a new results
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/result"
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: "#/definitions/Results"
+        500:
+          description: internal server error
+
+    get:
+      tags:
+        - Results
+      summary: Search a results
+      description: Searches resultss based on a given search criteria
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/search"
+      responses:
+        200:
+          description: A list of all resultss
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Results"
+        404:
+          description: No resultss found
+        500:
+          description: internal server error
+
+  /api/results/{id}:
+    get:
+      tags:
+        - Results
+      summary: Get results details
+      description: Gets the details of a results by id
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Results details
+          schema:
+            $ref: "#/definitions/Results"
+        404:
+          description: Results not found
+        500:
+          description: internal server error
+
+    put:
+      tags:
+        - Results
+      summary: Update a results
+      description: Use this endpoint if you want to update a results
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/result"
+
+      responses:
+        200:
+          description: Returns the results that has been updated
+          schema:
+            $ref: "#/definitions/Results"
+        404:
+          description: Results not found
+        500:
+          description: internal server error
+
+    delete:
+      tags:
+        - Results
+      summary: Delete a results
+      description: Deletes a results
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Results deleted successfully
+        404:
+          description: Results not found
+        500:
+          description: internal server error

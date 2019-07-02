@@ -1,0 +1,181 @@
+definitions:
+  Student:
+    type: object
+    required:
+      - name
+      - school
+      - gender
+      - status
+      - classes
+      - school_code
+      - psm_student_id
+    properties:
+      name:
+        type: string
+        description: Name of the student e.g. Eliana Aretha Kwagala Kiggundu
+
+      gender:
+        description: Gender
+        type: string
+        enum:
+          - male
+          - female
+
+      status:
+        default: current
+        type: string
+        enum:
+          - current
+          - left
+
+      psm_student_id:
+        type: integer
+        description: Unique identifier of the student in PSM
+
+      school_code:
+        $ref: "#/definitions/School/properties/code"
+
+      date_of_birth:
+        type: object
+        description: The student's date of birth
+
+      photo:
+        type: string
+        description: Path to the student photo
+
+      class_history:
+        type: array
+        description: Student's class history
+        items:
+          type: object
+          properties:
+            year:
+              type: string
+              description: School year e.g. 2019
+            term:
+              type: string
+              description: School term e.g. I
+            class:
+              type: string
+              description: School class e.g. S.4
+            stream:
+              type: string
+              description: Class stream e.g. Green
+
+parameters:
+  id:
+    in: path
+    type: string
+    required: true
+    name: id
+    description: Student Id
+
+  search:
+    in: query
+    type: string
+    required: true
+    name: search
+    description: Search keyword
+
+  student:
+    in: body
+    type: object
+    required: true
+    name: body
+    description: Student object
+    schema:
+      $ref: "#/definitions/Student"
+
+paths:
+  /api/student:
+    post:
+      tags:
+        - Student
+      summary: Add a student
+      description: This allows creation of a new student
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/student"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Student"
+        500:
+          description: internal server error
+
+    get:
+      tags:
+        - Student
+      summary: Search a student
+      description: Searches students based on a given search criteria
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/search"
+      responses:
+        200:
+          description: A list of all students
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Student"
+        404:
+          description: No students found
+        500:
+          description: internal server error
+
+  /api/student/{id}:
+    get:
+      tags:
+        - Student
+      summary: Get student details
+      description: Gets the details of a student by id
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Student details
+          schema:
+            $ref: "#/definitions/Student"
+        404:
+          description: Student not found
+        500:
+          description: internal server error
+
+    put:
+      tags:
+        - Student
+      summary: Update a student
+      description: Use this endpoint if you want to update a student
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/student"
+
+      responses:
+        200:
+          description: Returns the student that has been updated
+          schema:
+            $ref: "#/definitions/Student"
+        404:
+          description: Student not found
+        500:
+          description: internal server error
+
+    delete:
+      tags:
+        - Student
+      summary: Delete a student
+      description: Deletes a student
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Student deleted successfully
+        404:
+          description: Student not found
+        500:
+          description: internal server error

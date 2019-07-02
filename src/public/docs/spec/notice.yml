@@ -24,9 +24,8 @@ definitions:
         type: string
         description: Unique identifier of the notice usually generated through PSM
 
-      author:
-        type: ObjectId
-        description: Author
+      author_id:
+        $ref: "#/definitions/User/properties/_id"
 
 parameters:
   id:

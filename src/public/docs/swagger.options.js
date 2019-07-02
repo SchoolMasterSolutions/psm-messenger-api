@@ -37,9 +37,15 @@ export const swaggerDefinition = {
     }, {
       name: 'School',
       description: 'Handles everything about a school'
+    }, {
+      name: 'Student',
+      description: 'Handles everything about a student'
+    }, {
+      name: 'Results',
+      description: 'Handles all student results. The results are stored per school, per student, per term, per year'
     }]
 
   },
   basedir: __dirname, // app absolute path
-  apis: ['./src/public/docs/routes/*.yml'],
+  apis: ['./src/public/docs/spec/*.yml'],
 };

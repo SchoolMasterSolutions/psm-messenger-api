@@ -7,6 +7,10 @@ definitions:
       - given_name
       - family_name
     properties:
+      _id:
+        type: string
+        description: Auto-generated primary key
+
       category:
         type: string
         description: User category
