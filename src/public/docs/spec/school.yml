@@ -18,6 +18,7 @@ definitions:
       email:
         type: string
         description: School's email address
+
       coordinates:
         type: object
         properties:
@@ -63,6 +64,28 @@ definitions:
       code:
         type: string
         description: Unique identifier of the school usually generated through PSM
+
+      classes:
+        type: array
+        description: School classes
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the class
+            name:
+              type: string
+              description: Class name e.g. S.1, S.2
+            streams:
+              type: array
+              description: Class streams
+              items:
+                type: string
+
+      houses:
+        type: array
+        description: Houses or clubs
 
       address:
         type: object

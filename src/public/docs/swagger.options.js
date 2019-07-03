@@ -32,8 +32,8 @@ export const swaggerDefinition = {
     },
 
     tags: [{
-      name: 'Forum',
-      description: 'Allows users to publish posts, blog articles'
+      name: 'Authentication',
+      description: 'Handles everything about user authentication and authorization'
     }, {
       name: 'School',
       description: 'Handles everything about a school'
@@ -46,6 +46,12 @@ export const swaggerDefinition = {
     }, {
       name: 'Notifications',
       description: 'Handles everything about notifications'
+    }, {
+      name: 'Forum',
+      description: 'Allows users to publish posts, blog articles'
+    }, {
+      name: 'Subscription',
+      description: 'Handles everything about subscriptions for both school and parents for premium features'
     }]
 
   },

@@ -11,21 +11,14 @@ definitions:
           - email
           - app
 
-      audience:
-        type: array
-        items:
-          $ref: "#/definitions/User/properties/category"
-
       recipients:
         type: array
         description: String array of emails or phone numbers to receive the notification.
-
-      school_codes:
-        type: array
-        description: Leave blank if the notification is for all schools
         items:
           type: string
-          description: "#/definitions/School/properties/code/description"
+
+      school_code:
+        $ref: "#/definitions/School/properties/code"
 
       details:
         type: string
@@ -34,20 +27,6 @@ definitions:
       send_date:
         type: date
         description: Date when the notification should be sent
-
-      schedule:
-        type: object
-        properties:
-          frequency:
-            type: string
-            default: once
-            enum: ["once", "daily", "weekly", "yearly"]
-          interval:
-            type: number
-            description: Number of days, weeks, years
-          until:
-            type: date
-            description: Date after which notification is not sent
 
 parameters:
   id:

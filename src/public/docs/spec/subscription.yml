@@ -1,0 +1,143 @@
+definitions:
+  Subscription:
+    type: object
+    required:
+      - category
+      - school_code
+      - status
+      - features
+    properties:
+      category:
+        type: string
+        enum: ["school", "parent"]
+        description: Specifies whether the subscription is for a school for a parent
+
+      school_code:
+        $ref: "#/definitions/School/properties/code"
+
+      parent_code:
+        $ref: "#/definitions/User/properties/_id"
+
+      status:
+        type: string
+        default: inactive
+        enum: ["active", "inactive", trial]
+
+      expires_on:
+        type: string
+        description: Expiration date for the trial subscription
+
+      features:
+        type: array
+        description: School or parent premium features subscribed for
+
+parameters:
+  id:
+    in: path
+    type: string
+    required: true
+    name: id
+    description: Subscription Id
+
+  subscription:
+    in: body
+    type: object
+    required: true
+    name: body
+    description: Subscription object
+    schema:
+      $ref: "#/definitions/Subscription"
+
+paths:
+  /api/subscription:
+    post:
+      tags:
+        - Subscription
+      summary: Add a subscription
+      description: This allows creation of a new subscription
+      consumes: application/json
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/subscription"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Subscription"
+        500:
+          description: internal server error
+
+    get:
+      tags:
+        - Subscription
+      summary: Search a subscription
+      description: Searches subscription based on a given search criteria
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/search"
+      responses:
+        200:
+          description: A list of all subscription
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Subscription"
+        404:
+          description: No subscription found
+        500:
+          description: internal server error
+
+  /api/subscription/{id}:
+    get:
+      tags:
+        - Subscription
+      summary: Get subscription details
+      description: Gets the details of a subscription by id
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Subscription details
+          schema:
+            $ref: "#/definitions/Subscription"
+        404:
+          description: Subscription not found
+        500:
+          description: internal server error
+
+    put:
+      tags:
+        - Subscription
+      summary: Update a subscription
+      description: Use this endpoint if you want to update a subscription
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/subscription"
+
+      responses:
+        200:
+          description: Returns the subscription that has been updated
+          schema:
+            $ref: "#/definitions/Subscription"
+        404:
+          description: Subscription not found
+        500:
+          description: internal server error
+
+    delete:
+      tags:
+        - Subscription
+      summary: Delete a subscription
+      description: Deletes a subscription
+      produces: application/json
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: Subscription deleted successfully
+        404:
+          description: Subscription not found
+        500:
+          description: internal server error
