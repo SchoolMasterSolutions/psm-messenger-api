@@ -71,9 +71,6 @@ definitions:
         items:
           type: object
           properties:
-            id:
-              type: string
-              description: Unique identifier of the class
             name:
               type: string
               description: Class name e.g. S.1, S.2
