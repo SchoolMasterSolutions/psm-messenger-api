@@ -2,70 +2,135 @@ definitions:
   User:
     type: object
     required:
-      - category
       - email
       - given_name
       - family_name
     properties:
       _id:
         type: string
-        description: Auto-generated primary key
+        description: Unique identfier of the student
 
       category:
-        type: string
-        description: User category
-        enum:
-          - staff
-          - parent
-          - admin
-      email:
-        type: string
-        description: A summary of the feature under which the user falls
+        type: array
+        description: Specifies if the user is a parent, teacher or admin
+        items:
+          enum:
+            - parent
+            - teacher
+            - admin
 
-      preferred_username:
-        type: string
-        description: Defaults to email address
+      affiliations:
+        type: array
+        description: Schools that the user is affiliated to
+        items:
+          type: object
+          properties:
+            school_id:
+              $ref: "#/definitions/School/properties/_id"
+            category:
+              type: string
+              description: User category
+              enum:
+                - staff
+                - parent
+                - student
 
-      given_name:
-        type: string
-        description: The user's given name or first name
+      children:
+        type: array
+        description: Students for which the user is a parent or guardian
+        items:
+          type: object
+          properties:
+            student_id:
+              $ref: "#/definitions/Student/properties/_id"
+            school_id:
+              $ref: "#/definitions/School/properties/_id"
+            relationship:
+              type: string
+              description: The relationship the user has with the student
+              enum:
+                - father
+                - mother
+                - brother
+                - sister
+                - guardian
 
-      middle_name:
-        type: string
-        description: The user's middle name
+      account:
+        type: object
+        description: Login account details
+        properties:
+          preferred_username:
+            type: string
+            description: Defaults to email address
+          password:
+            type: string
+            format: password
+            description: User password
+            minLength: 8
 
-      family_name:
-        type: string
-        description: The user's family name or last name
+          is_active:
+            type: boolean
+            description: Indicates if the user account is active or not
+            default: true
 
       profile:
-        type: string
-        description: A brief description about the user
+        type: object
+        description: User profile
+        properties:
+          email:
+            type: string
+            description: User's email address
 
-      date_of_birth:
-        type: string
-        description: Date of birth. It's optional
+          name:
+            type: string
+            description: The user's full name
+
+          date_of_birth:
+            type: string
+            description: Date of birth. It's optional
 
 parameters:
-  id:
-    in: path
-    type: string
-    required: true
-    name: id
-    description: User Id
-
-  search:
+  _id:
     in: query
     type: string
     required: true
-    name: search
-    description: Search keyword
+    name: _id
+    example: 57694bdc-4609-4500-ae91-48ba98ea8ba4
+    schema:
+      $ref: "#/definitions/User/properties/_id"
 
-  body:
+  user_name:
+    in: query
+    type: string
+    name: name
+    example: Eliana
+    description: Full text search by name
+    schema:
+      $ref: "#/definitions/User/properties/profile/properties/name"
+
+  category:
+    in: query
+    type: string
+    enum:
+      - teacher
+      - parent
+      - student
+    name: category
+    example: parent
+    description: Search by user category
+
+  school_id:
+    in: query
+    type: string
+    name: school_id
+    description: Search by school id
+    example: 57694bdc-4609-4500-ae91-48ba98ea8ba4
+
+  user_object:
     in: body
     type: object
     required: true
-    name: body
+    name: user
     description: User object
     schema:
       $ref: "#/definitions/User"
@@ -74,13 +139,13 @@ paths:
   /api/user:
     post:
       tags:
-        - User
-      summary: Create user
+        - Users
+      summary: Add
       description: This allows creation of a new user
       consumes: application/json
       produces: application/json
       parameters:
-        - $ref: "#/parameters/body"
+        - $ref: "#/parameters/user_object"
       responses:
         200:
           description: success
@@ -91,12 +156,15 @@ paths:
 
     get:
       tags:
-        - User
-      summary: Search a user
+        - Users
+      summary: Search
       description: Searches users based on a given search criteria
       produces: application/json
       parameters:
-        - $ref: "#/parameters/search"
+        - $ref: "#/parameters/user_name"
+        - $ref: "#/parameters/_id"
+        - $ref: "#/parameters/school_id"
+        - $ref: "#/parameters/category"
       responses:
         200:
           description: A list of all users
@@ -109,34 +177,16 @@ paths:
         500:
           description: internal server error
 
-  /api/user/{id}:
-    get:
-      tags:
-        - User
-      summary: Get user details
-      description: Gets the details of a user by id
-      produces: application/json
-      parameters:
-        - $ref: "#/parameters/id"
-      responses:
-        200:
-          description: User details
-          schema:
-            $ref: "#/definitions/User"
-        404:
-          description: User not found
-        500:
-          description: internal server error
-
+  /api/user/{_id}:
     put:
       tags:
-        - User
-      summary: Update a user
+        - Users
+      summary: Update
       description: Use this endpoint if you want to update a user
       produces: application/json
       parameters:
-        - $ref: "#/parameters/id"
-        - $ref: "#/parameters/body"
+        - $ref: "#/parameters/_id"
+        - $ref: "#/parameters/user_object"
 
       responses:
         200:
@@ -150,12 +200,12 @@ paths:
 
     delete:
       tags:
-        - User
-      summary: Delete a user
+        - Users
+      summary: Delete
       description: Deletes a user
       produces: application/json
       parameters:
-        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/_id"
       responses:
         200:
           description: User deleted successfully

@@ -7,9 +7,12 @@ definitions:
       - gender
       - status
       - classes
-      - school_code
+      - school_id
       - psm_student_id
     properties:
+      _id:
+        type: string
+        description: Auto-generated primary key that uniquely identifies a student
       name:
         type: string
         description: Name of the student e.g. Eliana Aretha Kwagala Kiggundu
@@ -32,8 +35,8 @@ definitions:
         type: integer
         description: Unique identifier of the student in PSM
 
-      school_code:
-        $ref: "#/definitions/School/properties/code"
+      school_id:
+        $ref: "#/definitions/School/properties/_id"
 
       date_of_birth:
         type: object
@@ -41,6 +44,7 @@ definitions:
 
       photo:
         type: string
+        format: binary
         description: Path to the student photo
 
       class_history:
@@ -62,21 +66,11 @@ definitions:
               type: string
               description: Class stream e.g. Green
 
+      house:
+        type: string
+        description: House to which a student is attached
+
 parameters:
-  id:
-    in: path
-    type: string
-    required: true
-    name: id
-    description: Student Id
-
-  search:
-    in: query
-    type: string
-    required: true
-    name: search
-    description: Search keyword
-
   student:
     in: body
     type: object
@@ -90,8 +84,8 @@ paths:
   /api/student:
     post:
       tags:
-        - Student
-      summary: Add a student
+        - Students
+      summary: Add
       description: This allows creation of a new student
       consumes: application/json
       produces: application/json
@@ -105,14 +99,28 @@ paths:
         500:
           description: internal server error
 
-    get:
+  /api/student/search:
+    post:
       tags:
-        - Student
-      summary: Search a student
+        - Students
+      summary: Search
       description: Searches students based on a given search criteria
       produces: application/json
       parameters:
-        - $ref: "#/parameters/search"
+        - in: body
+          type: object
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/Student/properties/name"
+              gender:
+                $ref: "#/definitions/Student/properties/gender"
+              status:
+                $ref: "#/definitions/Student/properties/status"
+              school_id:
+                $ref: "#/definitions/School/properties/_id"
+
       responses:
         200:
           description: A list of all students
@@ -125,33 +133,22 @@ paths:
         500:
           description: internal server error
 
-  /api/student/{id}:
-    get:
-      tags:
-        - Student
-      summary: Get student details
-      description: Gets the details of a student by id
-      produces: application/json
-      parameters:
-        - $ref: "#/parameters/id"
-      responses:
-        200:
-          description: Student details
-          schema:
-            $ref: "#/definitions/Student"
-        404:
-          description: Student not found
-        500:
-          description: internal server error
-
+  /api/student/{_id}:
     put:
       tags:
-        - Student
-      summary: Update a student
+        - Students
+      summary: Update
       description: Use this endpoint if you want to update a student
       produces: application/json
       parameters:
-        - $ref: "#/parameters/id"
+        - in: path
+          type: string
+          required: true
+          name: _id
+          example: 57694bdc-4609-4500-ae91-48ba98ea8ba4
+          schema:
+            $ref: "#/definitions/Student/properties/_id"
+
         - $ref: "#/parameters/student"
 
       responses:
@@ -166,12 +163,18 @@ paths:
 
     delete:
       tags:
-        - Student
-      summary: Delete a student
+        - Students
+      summary: Delete
       description: Deletes a student
       produces: application/json
       parameters:
-        - $ref: "#/parameters/id"
+        - in: path
+          type: string
+          required: true
+          name: _id
+          example: 57694bdc-4609-4500-ae91-48ba98ea8ba4
+          schema:
+            $ref: "#/definitions/Student/properties/_id"
       responses:
         200:
           description: Student deleted successfully

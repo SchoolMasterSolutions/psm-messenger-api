@@ -116,8 +116,8 @@ paths:
   /api/event:
     post:
       tags:
-        - Event
-      summary: Add an event
+        - Events
+      summary: Add
       description: This allows creation of a new event
       consumes: application/json
       produces: application/json
@@ -133,8 +133,8 @@ paths:
 
     get:
       tags:
-        - Event
-      summary: Search an event
+        - Events
+      summary: Search
       description: Searches events based on a given search criteria
       produces: application/json
       parameters:
@@ -152,28 +152,10 @@ paths:
           description: internal server error
 
   /api/event/{id}:
-    get:
-      tags:
-        - Event
-      summary: Get event details
-      description: Gets the details of an event by id
-      produces: application/json
-      parameters:
-        - $ref: "#/parameters/id"
-      responses:
-        200:
-          description: Event details
-          schema:
-            $ref: "#/definitions/Event"
-        404:
-          description: Event not found
-        500:
-          description: internal server error
-
     put:
       tags:
-        - Event
-      summary: Update an event
+        - Events
+      summary: Update
       description: Use this endpoint if you want to update an event
       produces: application/json
       parameters:
@@ -192,8 +174,8 @@ paths:
 
     delete:
       tags:
-        - Event
-      summary: Delete an event
+        - Events
+      summary: Delete
       description: Deletes an event
       produces: application/json
       parameters:

@@ -12,7 +12,7 @@ export const swaggerDefinition = {
     info: {
       title: 'PSM Messenger API',
       version: '0.1.0',
-      description: 'Endpoints to use for PSM Messenger API',
+      description: 'Endpoints to use for PSM Messenger API.',
       contact: {
         name: 'Wilson Kiggundu',
         url: 'http://wilsonie.wordpress.com',
@@ -28,30 +28,45 @@ export const swaggerDefinition = {
     produces: ['application/json'],
     schemes: ['http', 'https'],
     securityDefinitions: {
+      basic_auth: {
+        type: 'http',
+        scheme: 'basic'
+      },
+
+      bearer_auth: {
+        type: 'http',
+        scheme: 'bearer'
+      },
+
+      api_key: {
+        type: 'apiKey',
+        in: 'header',
+        name: 'X-API-Key'
+      }
 
     },
 
     tags: [{
-      name: 'Authentication',
-      description: 'Handles everything about user authentication and authorization'
+      name: 'Users',
+      description: 'Handles everything about user signup, authentication and authorization'
     }, {
-      name: 'School',
+      name: 'Schools',
       description: 'Handles everything about a school'
     }, {
-      name: 'Student',
+      name: 'Subscriptions',
+      description: 'Handles everything about subscriptions for both school and parents for premium features'
+    }, {
+      name: 'Students',
       description: 'Handles everything about a student'
     }, {
-      name: 'Results',
+      name: 'Academic Results',
       description: 'Handles all student results. The results are stored per school, per student, per term, per year'
     }, {
       name: 'Notifications',
       description: 'Handles everything about notifications'
     }, {
-      name: 'Forum',
+      name: 'Articles',
       description: 'Allows users to publish posts, blog articles'
-    }, {
-      name: 'Subscription',
-      description: 'Handles everything about subscriptions for both school and parents for premium features'
     }]
 
   },

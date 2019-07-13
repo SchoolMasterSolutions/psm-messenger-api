@@ -16,17 +16,19 @@ definitions:
         description: String array of emails or phone numbers to receive the notification.
         items:
           type: string
+        uniqueItems: true
 
-      school_code:
-        $ref: "#/definitions/School/properties/code"
+      school_id:
+        $ref: "#/definitions/School/properties/_id"
 
       details:
         type: string
         description: Details of sms or email
 
       send_date:
-        type: date
+        type: string
         description: Date when the notification should be sent
+        format: date-time
 
 parameters:
   id:
@@ -36,12 +38,21 @@ parameters:
     name: id
     description: Notification Id
 
-  search:
-    in: query
-    type: string
-    required: true
+  search_notification:
+    in: body
     name: search
-    description: Search keyword
+    description: Search request object
+    required: true
+    type: object
+    properties:
+      channels:
+        type: array
+        items:
+          type: string
+          enum:
+            - sms
+            - email
+            - app
 
   notification:
     in: body
@@ -57,8 +68,8 @@ paths:
     post:
       tags:
         - Notifications
-      summary: Add a notification
-      description: This allows creation of a new notification
+      summary: Send
+      description: This endpoint allows you to send a text message (SMS), an email or a push notification to the mobile app.
       consumes: application/json
       produces: application/json
       parameters:
@@ -70,18 +81,22 @@ paths:
             $ref: "#/definitions/Notifications"
         500:
           description: internal server error
+      security:
+        - api_key:
+            - "write:notification"
 
-    get:
+  /api/notification/search:
+    post:
       tags:
         - Notifications
-      summary: Search a notification
+      summary: Search
       description: Searches notifications based on a given search criteria
       produces: application/json
       parameters:
-        - $ref: "#/parameters/search"
+        - $ref: "#/parameters/search_notification"
       responses:
         200:
-          description: A list of all notifications
+          description: A list of notifications
           schema:
             type: array
             items:
@@ -92,28 +107,10 @@ paths:
           description: internal server error
 
   /api/notification/{id}:
-    get:
-      tags:
-        - Notifications
-      summary: Get notification details
-      description: Gets the details of a notification by id
-      produces: application/json
-      parameters:
-        - $ref: "#/parameters/id"
-      responses:
-        200:
-          description: Notification details
-          schema:
-            $ref: "#/definitions/Notifications"
-        404:
-          description: Notification not found
-        500:
-          description: internal server error
-
     put:
       tags:
         - Notifications
-      summary: Update a notification
+      summary: Update
       description: Use this endpoint if you want to update a notification
       produces: application/json
       parameters:
@@ -133,7 +130,7 @@ paths:
     delete:
       tags:
         - Notifications
-      summary: Delete a notification
+      summary: Delete
       description: Deletes a notification
       produces: application/json
       parameters:
