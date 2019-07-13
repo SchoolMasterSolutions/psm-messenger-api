@@ -23,7 +23,7 @@ module.exports = {
     "linebreak-style": [
       "error", process.env.NODE_ENV === 'prod' ? "unix" : "windows"
     ],
-    'consistent-return': 'allow',
+    'consistent-return': 0,
     'no-console': 'off',
     "no-underscore-dangle": ["error", {
       "allow": ["_place"]
