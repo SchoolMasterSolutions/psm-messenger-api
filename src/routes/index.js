@@ -5,7 +5,6 @@ import {eventRoutes} from "./eventRoutes";
 import {notificationRoutes} from "./notificationRoutes";
 import {resultsRoutes} from "./resultsRoutes";
 import {studentRoutes} from "./studentRoutes";
-import {notificationRoutes} from "./notificationRoutes";
 
 export const router = (app) => {
   userRoutes(app)

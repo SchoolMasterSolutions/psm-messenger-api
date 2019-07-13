@@ -45,7 +45,7 @@ definitions:
             - parents
             - admin
 
-      author:
+      author_id:
         type: ObjectId
         description: Author
 

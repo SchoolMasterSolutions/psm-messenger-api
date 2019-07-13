@@ -2,7 +2,9 @@ import {
   Types
 } from 'mongoose';
 
-export const create = async (req, res) => {
+import {NotificationModel} from "../models/notificationModel";
+
+export const send = async (req, res) => {
 
 }
 

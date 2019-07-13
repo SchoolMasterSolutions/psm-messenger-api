@@ -15,7 +15,7 @@ definitions:
       school_id:
         $ref: "#/definitions/School/properties/_id"
 
-      parent_code:
+      user_id:
         $ref: "#/definitions/User/properties/_id"
 
       status:

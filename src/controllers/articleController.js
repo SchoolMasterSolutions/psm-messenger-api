@@ -2,6 +2,8 @@ import {
   Types
 } from 'mongoose';
 
+import {ArticleModel} from "../models/articleModel";
+
 export const create = async (req, res) => {
 
 }
