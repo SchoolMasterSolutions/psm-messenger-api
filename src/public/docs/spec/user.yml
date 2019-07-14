@@ -8,7 +8,7 @@ definitions:
     properties:
       _id:
         type: string
-        description: Unique identfier of the student
+        description: Unique identfier of the user
 
       category:
         type: array
