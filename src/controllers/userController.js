@@ -1,11 +1,35 @@
 import {
     Types
 } from 'mongoose';
-
+import * as crypto from 'bcrypt'
 import {UserModel} from "../models/userModel";
 
 export const login = async (req, res) => {
+    const {email, password} = req.body
 
+    try {
+        await UserModel.findOne({'account.preferred_username': email}, (err, user) => {
+            if(err) return res.status(500).send({message: err.message})
+
+            if(user){
+                if(!user.account.is_active) return res.status(401).send({message: 'account is inactive'})
+
+                crypto.compare(password, user.account.password, (error, isMatch) => {
+                    if(error) return res.status(500).send({message: error.message})
+                    if (isMatch) {
+                        user.account.password = undefined;
+                        return res.status(200).send(user)
+                    }
+                    else return res.status(401).send({message: 'invalid credentials'})
+                })
+            }
+            else return res.status(401).send({message: 'invalid credentials'})
+
+        })
+    } catch (e) {
+        res.status(500)
+        return res.send({message: e.message})
+    }
 }
 
 export const resetPassword = async (req, res) => {
@@ -66,6 +90,9 @@ export const search = async (req, res) => {
 export const update = async (req, res) => {
     const {_id} = req.query;
     const user = req.body;
+
+    // don't update the password
+    delete user.account.password
 
     try {
         await UserModel.findByIdAndUpdate(_id, user, {new: true}, (err, result) => {
