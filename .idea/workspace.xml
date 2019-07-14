@@ -2,30 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33d14b18-6f58-4c64-933e-577afb046f8f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/models/articleModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/eventModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/notificationModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/resultsModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/schoolModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/studentModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/subscriptionModel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/articleController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/articleController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/eventController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/eventController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/notificationController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/notificationController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/resultsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/resultsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/schoolController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/schoolController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/studentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/studentController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/subscriptionController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/subscriptionController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/userModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/public/docs/spec/calendar.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/docs/spec/calendar.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/public/docs/spec/subscription.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/docs/spec/subscription.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/public/docs/spec/user.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/docs/spec/user.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/notificationRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/notificationRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/userRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/userRoutes.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -39,10 +18,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/models/subscriptionModel.js">
+        <entry file="file://$PROJECT_DIR$/src/routes/userRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="12" column="8" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
+            <state relative-caret-position="190">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -50,8 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/userModel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
+            <state relative-caret-position="133">
+              <caret line="55" column="7" lean-forward="true" selection-start-line="55" selection-start-column="7" selection-end-line="55" selection-end-column="7" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -59,35 +38,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controllers/articleController.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/controllers/userController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="465">
+              <caret line="85" column="40" selection-start-line="85" selection-start-column="40" selection-end-line="85" selection-end-column="40" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controllers/eventController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
-              <folding>
-                <element signature="e#0#33#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controllers/notificationController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -128,18 +86,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/controllers/userController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="43" lean-forward="true" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
@@ -170,7 +116,6 @@
         <option value="$PROJECT_DIR$/src/routes/eventRoutes.js" />
         <option value="$PROJECT_DIR$/src/routes/resultsRoutes.js" />
         <option value="$PROJECT_DIR$/src/routes/studentRoutes.js" />
-        <option value="$PROJECT_DIR$/src/routes/userRoutes.js" />
         <option value="$PROJECT_DIR$/src/routes/subscriptionRoutes.js" />
         <option value="$PROJECT_DIR$/src/routes/notificationRoutes.js" />
         <option value="$PROJECT_DIR$/src/models/user.js" />
@@ -195,15 +140,16 @@
         <option value="$PROJECT_DIR$/src/models/articleModel.js" />
         <option value="$PROJECT_DIR$/src/public/docs/spec/calendar.yml" />
         <option value="$PROJECT_DIR$/src/models/eventModel.js" />
+        <option value="$PROJECT_DIR$/src/routes/userRoutes.js" />
         <option value="$PROJECT_DIR$/src/controllers/userController.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1098" />
+    <option name="x" value="232" />
+    <option name="y" value="120" />
+    <option name="width" value="1120" />
+    <option name="height" value="628" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -230,6 +176,18 @@
               <item name="api" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -294,20 +252,20 @@
       <option name="presentableId" value="Default" />
       <updated>1563022114264</updated>
       <workItem from="1563022117240" duration="983000" />
-      <workItem from="1563023115449" duration="11717000" />
+      <workItem from="1563023115449" duration="15506000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12700000" />
+    <option name="totallyTimeSpent" value="16489000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="npm" order="2" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49858356" visible="true" weight="0.24983476" />
+      <window_info id="npm" order="1" side_tool="true" />
+      <window_info id="Structure" order="2" sideWeight="0.50141644" side_tool="true" weight="0.24983476" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
@@ -382,16 +340,6 @@
           <caret line="7" column="39" lean-forward="true" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
           <folding>
             <element signature="e#0#84#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/userRoutes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="36" lean-forward="true" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#99#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -530,16 +478,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/userModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/articleController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -595,10 +533,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/userModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="55" column="7" lean-forward="true" selection-start-line="55" selection-start-column="7" selection-end-line="55" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/userRoutes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/userController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="43" lean-forward="true" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+        <state relative-caret-position="465">
+          <caret line="85" column="40" selection-start-line="85" selection-start-column="40" selection-end-line="85" selection-end-column="40" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
