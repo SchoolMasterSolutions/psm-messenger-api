@@ -50,7 +50,10 @@ let UserSchema = Schema({
       is_active: {
         type: Boolean,
         default: false
-      }
+      },
+
+      reset_password_token: String,
+      reset_password_token_expiration: Date
     },
 
     profile: {
@@ -78,12 +81,17 @@ const SALT_WORK_FACTOR = 10
 UserSchema.pre('save', function (next) {
   const user = this;
 
+  if (!user.isModified('account.password')) return next()
+
   crypto.genSalt(SALT_WORK_FACTOR, (err, salt) => {
     if (err) return next(err);
 
     crypto.hash(user.account.password, salt, (error, hash) => {
       if (error) return next(error);
       user.account.password = hash;
+
+      user.account.reset_password_token = null
+      user.account.reset_password_token_expiration = null
       next();
     });
   });
