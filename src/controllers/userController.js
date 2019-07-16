@@ -9,21 +9,19 @@ export const login = async (req, res) => {
 
     try {
         await UserModel.findOne({'account.preferred_username': email}, (err, user) => {
-            if(err) return res.status(500).send({message: err.message})
+            if (err) return res.status(500).send({message: err.message})
 
-            if(user){
-                if(!user.account.is_active) return res.status(401).send({message: 'account is inactive'})
+            if (user) {
+                if (!user.account.is_active) return res.status(401).send({message: 'account is inactive'})
 
                 crypto.compare(password, user.account.password, (error, isMatch) => {
-                    if(error) return res.status(500).send({message: error.message})
+                    if (error) return res.status(500).send({message: error.message})
                     if (isMatch) {
                         user.account.password = undefined;
                         return res.status(200).send(user)
-                    }
-                    else return res.status(401).send({message: 'invalid credentials'})
+                    } else return res.status(401).send({message: 'invalid credentials'})
                 })
-            }
-            else return res.status(401).send({message: 'invalid credentials'})
+            } else return res.status(401).send({message: 'invalid credentials'})
 
         })
     } catch (e) {
@@ -78,55 +76,46 @@ export const resetPassword = async (req, res) => {
 
 }
 
-export const create = async (req, res) => {
-    try {
-        await UserModel.create(req.body, (err, user) => {
-            if (err) {
-                res.status(500)
-                return res.send({message: err.message})
-            }
-
-            res.status(201)
-            return res.json(user)
-        });
-    } catch (e) {
-        res.status(500)
-        return res.send({message: e.message})
-    }
+export const create = (req, res) => {
+    UserModel.create(req.body)
+    .then((user) => {
+        return res.status(201).send(user)
+    })
+    .catch(error => {
+        return res.status(500).send({message: error.message})
+    })
 }
 
 export const search = async (req, res) => {
-    const {name, _id, school_id, category} = req.query;
+    const {name, _id, school_id, category} = req.query
 
-    let query = UserModel.find();
-
-    if (_id !== undefined) {
-        query = query.where({_id: _id});
-    } else {
-        if (name !== undefined)
-            query = query.where({'profile.name': {$regex: name, $options: 'i'}});
-
-        if (school_id !== undefined)
-            query = query.where({school_id: school_id})
-
-        if (category !== undefined)
-            query = query.where({category: category})
-    }
-
-    try {
-        await query.select('-account.password -__v').exec((err, users) => {
-            if (err) {
-                res.status(500)
-                return res.send({message: err.message})
-            }
-
-            res.status(200)
-            return res.send(users)
+    if (_id !== undefined)
+        UserModel.findById(_id)
+        .then(student => {
+            return res.status(200).send(student)
         })
-    } catch (e) {
-        res.status(500)
-        return res.send({message: e.message})
-    }
+        .catch(error => {
+            return res.status(500).send({message: error.message})
+        })
+
+    let query = UserModel.find()
+
+    if (name !== undefined)
+        query = query.where({'profile.name': {$regex: name, $options: 'i'}});
+
+    if (school_id !== undefined)
+        query = query.where({school_id: school_id})
+
+    if (category !== undefined)
+        query = query.where({category: category})
+
+    query.select('-account.password -__v')
+    .then(students => {
+        return res.status(200).send(students)
+    })
+    .catch(error => {
+        return res.status(500).send({message: error.message})
+    })
 }
 
 export const update = async (req, res) => {
@@ -136,28 +125,21 @@ export const update = async (req, res) => {
     // don't update the password
     delete user.account.password
 
-    try {
-        await UserModel.findByIdAndUpdate(_id, user, {new: true}, (err, result) => {
-            if (err) return res.status(500).send(err);
-            return res.send(result);
-        })
-    } catch (e) {
-        res.status(500)
-        return res.send({message: e.message})
-    }
-
+    UserModel.findByIdAndUpdate(_id, user)
+    .then((result) => {
+        return res.status(200).send(result);
+    }).catch(error => {
+        return res.status(500).send({message: error.message})
+    })
 }
 
-export const remove = async (req, res) => {
+export const remove = (req, res) => {
     const {_id} = req.query;
 
-    try {
-        await UserModel.findByIdAndRemove(_id, (err, result) => {
-            if (err) return res.status(500).send(err);
-            return res.status(200).send({message: 'User successfully deleted', result: result, _id: _id});
-        })
-    } catch (e) {
-        res.status(500)
-        return res.send({message: e.message})
-    }
+    UserModel.findByIdAndRemove(_id)
+    .then((result) => {
+        return res.status(200).send({message: 'user successfully deleted', result: result, _id: _id});
+    }).catch(error => {
+        return res.status(500).send({message: error.message})
+    })
 }
