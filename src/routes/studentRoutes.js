@@ -5,6 +5,6 @@ import {
 export const studentRoutes = (app) => {
   app.post('/api/student', create);
   app.get('/api/student', search);
-  app.put('/api/student/:_id', update);
-  app.delete('/api/student/:_id', remove);
+  app.put('/api/student', update);
+  app.delete('/api/student', remove);
 };

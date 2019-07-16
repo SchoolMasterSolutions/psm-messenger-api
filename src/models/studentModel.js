@@ -9,11 +9,11 @@ export const StudentModel = model(
         name: {type: String, required: true},
         gender: {type: String, required: true, enum: ['male', 'female']},
         status: {type: String, required: true, enum: ['current', 'left']},
-        psm_student_id: {type: String},
+        internal_reference: {type: String},
         school_id: {type: Schema.Types.ObjectId, required: true},
         date_of_birth: {type: Date, required: false},
         photo: {type: Buffer, required: false},
-        house: {type: String, required: true},
+        house: {type: String, required: false},
 
         class_history: [
             {

@@ -20,7 +20,7 @@ definitions:
 
     properties:
       student_id:
-        $ref: "#/definitions/Student/properties/psm_student_id"
+        $ref: "#/definitions/Student/properties/_id"
       school_id:
         $ref: "#/definitions/School/properties/_id"
       term:
