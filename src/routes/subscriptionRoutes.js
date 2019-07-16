@@ -5,6 +5,6 @@ import {
 export const subscriptionRoutes = (app) => {
   app.post('/api/subscription', create);
   app.get('/api/subscription', search);
-  app.put('/api/subscription/:_id', update);
-  app.delete('/api/subscription/:_id', remove);
+    app.put('/api/subscription', update);
+    app.delete('/api/subscription', remove);
 };

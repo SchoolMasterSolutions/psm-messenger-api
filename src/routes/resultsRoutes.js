@@ -5,6 +5,6 @@ import {
 export const resultsRoutes = (app) => {
   app.post('/api/results', create);
   app.get('/api/results', search);
-  app.put('/api/results/:_id', update);
-  app.delete('/api/results/:_id', remove);
+    app.put('/api/results', update);
+    app.delete('/api/results', remove);
 };

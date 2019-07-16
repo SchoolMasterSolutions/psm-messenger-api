@@ -21,7 +21,7 @@ definitions:
       status:
         type: string
         default: inactive
-        enum: ["active", "inactive", trial]
+        enum: ["active", "inactive", "trial"]
 
       expires_on:
         type: datetime
@@ -105,7 +105,28 @@ paths:
       description: Searches subscription based on a given search criteria
       produces: application/json
       parameters:
-        - $ref: "#/parameters/search"
+        - in: query
+          name: user_id
+          type: string
+
+        - in: query
+          name: school_id
+          type: string
+          schema:
+            $ref: "#/definitions/School/properties/_id"
+
+        - in: query
+          name: category
+          type: string
+          schema:
+            $ref: "#/definitions/Subscription/properties/category"
+
+        - in: query
+          name: status
+          type: string
+          schema:
+            $ref: "#/definitions/Subscription/properties/status"
+
       responses:
         200:
           description: A list of all subscription

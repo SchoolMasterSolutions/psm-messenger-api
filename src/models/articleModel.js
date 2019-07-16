@@ -7,8 +7,12 @@ export const ArticleModel = model(
     'Article',
     Schema({
         author_id: {
-            type: Schema.Types.ObjectId,
+            type: String,
             required: true
+        },
+
+        school_id: {
+            type: String
         },
 
         audience: {

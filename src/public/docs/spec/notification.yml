@@ -31,29 +31,6 @@ definitions:
         format: date-time
 
 parameters:
-  id:
-    in: path
-    type: string
-    required: true
-    name: id
-    description: Notification Id
-
-  search_notification:
-    in: body
-    name: search
-    description: Search request object
-    required: true
-    type: object
-    properties:
-      channels:
-        type: array
-        items:
-          type: string
-          enum:
-            - sms
-            - email
-            - app
-
   notification:
     in: body
     type: object
@@ -93,7 +70,23 @@ paths:
       description: Searches notifications based on a given search criteria
       produces: application/json
       parameters:
-        - $ref: "#/parameters/search_notification"
+        - in: query
+          type: string
+          name: _id
+          description: Notification Id
+
+        - in: query
+          type: string
+          name: channel
+          schema:
+            $ref: "#/definitions/Notifications/properties/channel"
+
+        - in: query
+          type: string
+          name: school_id
+          schema:
+            $ref: "#/definitions/Notifications/properties/school_id"
+
       responses:
         200:
           description: A list of notifications

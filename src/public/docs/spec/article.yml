@@ -11,6 +11,9 @@ definitions:
       author_id:
         $ref: "#/definitions/User/properties/_id"
 
+      school_id:
+        "#/definitions/School/properties/_id"
+
       audience:
         $ref: "#/definitions/User/properties/category"
 
@@ -115,7 +118,35 @@ paths:
       description: Searches articles based on a given search criteria
       produces: application/json
       parameters:
-        - $ref: "#/parameters/search"
+        - in: query
+          type: string
+          name: _id
+          description: Article Id
+
+        - in: query
+          type: string
+          name: author_id
+          schema:
+            $ref: "#/definitions/Article/properties/author_id"
+
+        - in: query
+          type: string
+          name: school_id
+          schema:
+            $ref: "#/definitions/School/properties/_id"
+
+        - in: query
+          type: string
+          name: audience
+          schema:
+            $ref: "#/definitions/Article/properties/audience"
+
+        - in: query
+          type: string
+          name: title
+          schema:
+            $ref: "#/definitions/Article/properties/title"
+
       responses:
         200:
           description: A list of all articles

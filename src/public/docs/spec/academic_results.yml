@@ -144,7 +144,7 @@ paths:
 
         - in: query
           type: string
-          name: school_code
+          name: school_id
           schema:
             $ref: "#/definitions/School/properties/_id"
 
