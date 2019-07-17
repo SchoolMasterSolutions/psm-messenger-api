@@ -8,15 +8,16 @@ definitions:
     properties:
       _id:
         type: string
-        description: Unique identfier of the user
+        description: Unique identfier of the user. Don't include this when creating a new user
 
       category:
         type: array
-        description: Specifies if the user is a parent, teacher or admin
+        description: Specifies if the user is a parent, staff, student or admin
         items:
           enum:
             - parent
-            - teacher
+            - staff
+            - student
             - admin
 
       affiliations:
@@ -33,6 +34,7 @@ definitions:
               enum:
                 - staff
                 - parent
+                - admin
                 - student
 
       children:
@@ -112,7 +114,8 @@ parameters:
     in: query
     type: string
     enum:
-      - teacher
+      - staff
+      - admin
       - parent
       - student
     name: category

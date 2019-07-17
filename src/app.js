@@ -8,6 +8,9 @@ import swaggerUi from 'swagger-ui-express';
 import path from 'path';
 import morgan from 'morgan';
 import rfs from 'rotating-file-stream';
+import passport from 'passport'
+
+require('./config/passport')(passport)
 
 import {
   swaggerDefinition
@@ -16,11 +19,19 @@ import {
 import {
   router
 } from './routes';
-import db from './lib/db';
+import database from './config/database';
 
 require('dotenv').config();
 
 const app = express();
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    next()
+})
+
+app.use(passport.initialize())
 
 // add swagger documentation
 const swaggerSpec = swaggerJsDoc(swaggerDefinition);
@@ -70,7 +81,7 @@ app.use(bodyParser.json());
 router(app);
 
 // mongo database connection
-db.connect(process.env.DB_CONNECTION)
+database.connect(process.env.DB_CONNECTION)
   .then(() => {
     app.listen(process.env.PORT, () => {
       console.log(`Server running on port ${process.env.PORT}...`);

@@ -74,27 +74,34 @@ let UserSchema = Schema({
 
   }, {
     timestamps: true,
-  }, );
+},)
 
 const SALT_WORK_FACTOR = 10
 
 UserSchema.pre('save', function (next) {
-  const user = this;
+    const user = this
 
   if (!user.isModified('account.password')) return next()
 
   crypto.genSalt(SALT_WORK_FACTOR, (err, salt) => {
-    if (err) return next(err);
+      if (err) return next(err)
 
     crypto.hash(user.account.password, salt, (error, hash) => {
-      if (error) return next(error);
-      user.account.password = hash;
+        if (error) return next(error)
+        user.account.password = hash
 
       user.account.reset_password_token = null
       user.account.reset_password_token_expiration = null
-      next();
-    });
-  });
-});
+        next()
+    })
+  })
+})
+
+UserSchema.methods.comparePassword = function (password, done) {
+    crypto.compare(password, this.account.password, (error, isMatch) => {
+        if (error) return done(error)
+        done(null, isMatch)
+    })
+}
 
 export const UserModel = model('User', UserSchema);

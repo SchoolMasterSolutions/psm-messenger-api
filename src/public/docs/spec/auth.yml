@@ -33,6 +33,21 @@ paths:
       responses:
         200:
           description: Success
+          schema:
+            type: object
+            properties:
+              _id:
+                $ref: "#/definitions/User/properties/_id"
+              access_token:
+                type: string
+                description: Access token required when making call to authenticated api endpoints
+              expires_in:
+                type: number
+                format: integer
+                description: Number of seconds in which the token shall expire
+              token_type:
+                type: string
+                description: Prepend this to the token when making a request to the api e.g. "Bearer *access_token*"
         404:
           description: Not found
         401:

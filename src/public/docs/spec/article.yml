@@ -8,6 +8,10 @@ definitions:
       - audience
 
     properties:
+      _id:
+        type: String
+        description: Unique identifier of the article. Don't include this when creating a new article
+
       author_id:
         $ref: "#/definitions/User/properties/_id"
 

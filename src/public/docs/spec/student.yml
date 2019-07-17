@@ -13,7 +13,7 @@ definitions:
       _id:
         type: string
         required: false
-        description: Auto-generated primary key that uniquely identifies a student
+        description: Auto-generated primary key that uniquely identifies a student. Don't include this when creating a new student
       name:
         type: string
         description: Name of the student e.g. Eliana Aretha Kwagala Kiggundu

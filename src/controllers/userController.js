@@ -1,6 +1,7 @@
 import * as crypto from 'crypto'
 import {UserModel} from "../models/userModel";
-import {sendEmail} from "../lib/emailHelper";
+import {sendEmail} from "../helpers/emailHelper";
+import jwt from 'jsonwebtoken'
 
 require('dotenv').config();
 
@@ -14,11 +15,25 @@ export const login = async (req, res) => {
             if (user) {
                 if (!user.account.is_active) return res.status(401).send({message: 'account is inactive'})
 
-                crypto.compare(password, user.account.password, (error, isMatch) => {
+                user.comparePassword(password, (error, isMatch) => {
                     if (error) return res.status(500).send({message: error.message})
                     if (isMatch) {
-                        user.account.password = undefined;
-                        return res.status(200).send(user)
+
+                        user.account.password = undefined
+                        const token = jwt.sign({
+                            _id: user._id,
+                            claims: {
+                                name: user.profile.name,
+                                is_active: user.account.is_active
+                            }
+                        }, process.env.JWT_SECRET_KEY, {expiresIn: '1h'})
+
+                        return res.status(200).send({
+                            _id: user._id,
+                            access_token: `${token}`,
+                            expires_in: 3600,
+                            token_type: "JWT"
+                        })
                     } else return res.status(401).send({message: 'invalid credentials'})
                 })
             } else return res.status(401).send({message: 'invalid credentials'})

@@ -1,6 +1,3 @@
-import {
-    Types
-} from 'mongoose';
 
 import {SchoolModel} from "../models/schoolModel";
 
@@ -55,7 +52,7 @@ export const update = async (req, res) => {
 
     SchoolModel.findByIdAndUpdate(_id, school)
     .then(result => {
-        return res.status(200).send(school)
+        return res.status(200).send(result)
     })
     .catch(error => {
         return res.status(500).send({message: error.message})
@@ -67,7 +64,7 @@ export const remove = (req, res) => {
 
     SchoolModel.findByIdAndRemove(_id)
     .then(result => {
-        return res.status(200).send({message: 'school deleted successfully'})
+        return res.status(200).send({message: 'school deleted successfully', result: result})
     })
     .catch(error => {
         return res.status(500).send({message: error.message})

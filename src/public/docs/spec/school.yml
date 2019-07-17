@@ -42,7 +42,7 @@ definitions:
     properties:
       _id:
         type: string
-        description: Unique identifier of the school
+        description: Unique identifier of the school. Don't include this when creating a new school
 
       name:
         type: string
@@ -91,10 +91,10 @@ definitions:
                 label:
                   type: string
                   enum:
-                    - Pre-Primary
-                    - Primary
-                    - O-Level
-                    - A-Level
+                    - pre-primary
+                    - primary
+                    - o-level
+                    - a-level
             class_teacher:
               type: object
               properties:
