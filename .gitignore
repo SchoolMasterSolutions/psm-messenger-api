@@ -15,10 +15,8 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
 
 # nyc test coverage
-.nyc_output
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -37,7 +35,6 @@ node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
-typings/
 
 # Optional npm cache directory
 .npm
@@ -60,3 +57,5 @@ typings/
 
 # next.js build output
 .next
+
+.idea/
