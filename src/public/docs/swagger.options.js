@@ -28,21 +28,22 @@ export const swaggerDefinition = {
     produces: ['application/json'],
     schemes: ['http', 'https'],
     securityDefinitions: {
-      basic_auth: {
+        // basic_auth: {
+        //   type: 'http',
+        //   scheme: 'basic'
+        // },
+
+        JWT: {
         type: 'http',
-        scheme: 'basic'
+            scheme: 'bearer',
+            bearerFormat: 'JWT'
       },
 
-      bearer_auth: {
-        type: 'http',
-        scheme: 'bearer'
-      },
-
-      api_key: {
-        type: 'apiKey',
-        in: 'header',
-        name: 'X-API-Key'
-      }
+        // api_key: {
+        //   type: 'apiKey',
+        //   in: 'header',
+        //   name: 'X-API-Key'
+        // }
 
     },
 
