@@ -9,7 +9,10 @@
     "test": "mocha --require @babel/register --require @babel/polyfill"
   },
   "keywords": [
-    "estimation"
+    "PSM",
+    "Messenger",
+    "School",
+    "Student"
   ],
   "author": "Wilson Kiggundu",
   "license": "MIT",
@@ -24,7 +27,6 @@
     "bcrypt": "^3.0.6",
     "bluebird": "^3.5.4",
     "body-parser": "^1.18.3",
-    "chai": "^4.2.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^8.0.0",
@@ -34,20 +36,14 @@
     "eslint-plugin-mocha": "^5.3.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.14",
     "mocha": "^6.1.4",
     "mongoose": "^5.5.1",
-    "mongoose-reverse-populate": "^1.1.0",
-    "mongoose-type-email": "^1.0.11",
     "morgan": "^1.9.1",
     "nodemailer": "^6.3.0",
     "nodemon": "^1.18.11",
     "redoc": "^2.0.0-rc.4",
     "rotating-file-stream": "^1.4.1",
-    "should": "^13.2.3",
-    "sinon": "^7.3.2",
-    "sinon-chai": "^3.3.0",
-    "sinon-express-mock": "^2.2.0",
-    "supertest": "^4.0.2",
     "swagger-jsdoc": "^3.2.9",
     "swagger-ui-express": "^4.0.2",
     "validate.js": "^0.12.0"
