@@ -46,6 +46,7 @@
     "passport-jwt": "^4.0.0",
     "redoc": "^2.0.0-rc.4",
     "rotating-file-stream": "^1.4.1",
+    "socket.io": "^2.2.0",
     "swagger-jsdoc": "^3.2.9",
     "swagger-ui-express": "^4.0.2",
     "validate.js": "^0.12.0"

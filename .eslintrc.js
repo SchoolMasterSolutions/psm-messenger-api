@@ -27,7 +27,8 @@ module.exports = {
     'no-console': 'off',
     "no-underscore-dangle": ["error", {
       "allow": ["_place"]
-    }]
+    }],
+    "prefer-default-export": false
     // "mocha/no-exclusive-tests": "error"
   },
 };

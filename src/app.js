@@ -24,6 +24,9 @@ import database from './config/database';
 require('dotenv').config();
 
 const app = express();
+const http = require('http').createServer(app)
+const io = require('socket.io')(http)
+
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -49,10 +52,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'docs', 'index.html'));
 });
 
-app.use(cors({
-  origin: '*',
-  optionsSuccessStatus: 200,
-}));
+app.use(cors());
 
 const accessLogStream = rfs('access.log', {
   interval: '1d',
@@ -76,6 +76,34 @@ app.use(
 // parse requests of Content-Type application/json
 app.use(bodyParser.json());
 
+io.origins('*:*')
+io.on('connection', socket => {
+  socket.emit('connections', Object.keys(io.sockets.connected).length);
+
+  socket.on('disconnect', () => {
+    console.log("A user disconnected");
+  });
+
+  socket.on('chat-message', (data) => {
+    io.emit('chat-message', (data));
+  });
+
+  socket.on('typing', (data) => {
+    socket.broadcast.to(data).emit('typing', (data));
+  });
+
+  socket.on('stopTyping', () => {
+    socket.broadcast.emit('stopTyping');
+  });
+
+  socket.on('joined', (data) => {
+    socket.broadcast.emit('joined', (data));
+  });
+
+  socket.on('leave', (data) => {
+    socket.broadcast.emit('leave', (data));
+  });
+})
 
 // add routers
 router(app);
@@ -83,7 +111,7 @@ router(app);
 // mongo database connection
 database.connect(process.env.DB_CONNECTION)
   .then(() => {
-    app.listen(process.env.PORT, () => {
+    const server = http.listen(process.env.PORT, () => {
       console.log(`Server running on port ${process.env.PORT}...`);
     });
   })
